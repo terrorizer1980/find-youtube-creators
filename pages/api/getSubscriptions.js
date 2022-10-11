@@ -2,7 +2,7 @@ import { getToken } from "next-auth/jwt";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
-export default async (req, res) => {
+export default async function handler(req, res) {
   const token = await getToken({ req, secret });
 
   const data = await fetch(
@@ -18,5 +18,5 @@ export default async (req, res) => {
 
   const subscriptions = await data.json();
 
-  res.status(200).json(subscriptions);
-};
+  res.status(200).json(subscriptions.items);
+}
